@@ -1,45 +1,55 @@
 import React, { Component } from 'react'
 import { Segment, Form, Button } from 'semantic-ui-react';
+import { connect } from 'react-redux';
+import { createEvent, updateEvent } from '../eventActions';
+import cuid from 'cuid';
 
+const mapState = (state, ownProps) => {
+    const eventId = ownProps.match.params.id;
 
-const emptyEvent = {
+    let event = {
+      title: '',
+      date: '',
+      city: '',
+      venue: '',
+      hostedBy: ''
+    }
 
-    title: '',
-    date: '',
-    city: '',
-    venue: '',
-    hostedBy: ''
+    if(eventId && state.events.length > 0) {
+      event = state.events.filter(event => event.id === eventId)[0];
+    }
+    return {
+      event
+    }
 }
+
+const actions = {
+  createEvent,
+  updateEvent
+}
+
+
 
 class EventForm extends Component {
     state = {
-     event: emptyEvent
+     event: Object.assign({}, this.props.event)
     }
 
-    componentDidMount() {
-      if(this.props.selectedEvent !== null){
-        this.setState({
-          event: this.props.selectedEvent
-        })
-      }
-    }
-
-    componentWillReceiveProps(nextProps){
-      if(nextProps.selectedEvent !== this.props.selectedEvent){
-        this.setState({
-          event: nextProps.selectedEvent || emptyEvent
-        })
-      }
-    }
-
-
+     
     onFormSubmit = (e) => {
       e.preventDefault();
       const { createEvent, updateEvent } = this.props;
       if(this.state.event.id){
-        updateEvent(this.state.event)
+        updateEvent(this.state.event);
+        this.props.history.goBack();
       } else {
-        createEvent(this.state.event);
+      const newEvent = {
+        ...this.state.event,
+        id: cuid(),
+        hostPhotoURL:'/assets/user/png'
+      }
+       createEvent(newEvent);
+       this.props.history.push('/events');
     }}
 
     onInputChange = (e) => {
@@ -54,7 +64,6 @@ class EventForm extends Component {
 
 
   render() {
-        const { cancel } = this.props;
         const { event } = this.state;
     return (
       <div>
@@ -94,7 +103,7 @@ class EventForm extends Component {
 
                       <Button
                          type="button"
-                         onClick={ cancel }
+                         onClick={this.props.history.goBack}
                          >Cancel</Button>
                     </Form>
                   </Segment>
@@ -102,4 +111,4 @@ class EventForm extends Component {
     )
   }
 }
-export default EventForm;
+export default connect(mapState, actions)(EventForm);
