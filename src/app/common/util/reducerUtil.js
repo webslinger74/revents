@@ -4,7 +4,3 @@ export const createReducer = (initalState, fnMap) => {
         return handler ? handler(state, payload) : state;
     }
 };
-
-
-
-

@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-
 import { Grid } from 'semantic-ui-react';
 import EventList from '../EventList/EventList';
 import { deleteEvent} from '../eventActions'; 
@@ -11,8 +10,7 @@ const mapState = (state) => ({
 })
 
 const actions = {
- 
-  deleteEvent  
+   deleteEvent  
 }
 
 class EventDashboard extends Component {
