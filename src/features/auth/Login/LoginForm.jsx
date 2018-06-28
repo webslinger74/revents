@@ -4,12 +4,14 @@ import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
 import TextInput from '../../../app/common/form/TextInput';
 import { login } from '../authActions';
+//import { closeModal } from '../../modals/modalActions';
 
 const actions = {
-  login
+  login,
+ // closeModal  -- not sure how to add into handlesubmit
 }
 
-const LoginForm = ({ login, handleSubmit }) => {
+const LoginForm = ({ login, handleSubmit, closeModal }) => {
   return (
     <Form error size="large" onSubmit={handleSubmit(login)} >
       <Segment>

@@ -20,7 +20,7 @@ class LoginModal extends Component {
                 </Modal.Header>
                 <Modal.Content>
                     <Modal.Description>
-                        <LoginForm />
+                        <LoginForm  />
                     </Modal.Description>
                 </Modal.Content>
             </Modal>
