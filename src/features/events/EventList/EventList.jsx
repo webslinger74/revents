@@ -7,15 +7,14 @@ class EventList extends Component {
       const { events, deleteEvent } = this.props;
     return (
       <div>
-            <h2>EventList</h2>
         {events && events.map(event => (
             <EventListItem  key={event.id} event={event} deleteEvent={deleteEvent} />
         ))}
             
       </div>
-    )
+    );
   }
-};
+}
 
 export default EventList;
 

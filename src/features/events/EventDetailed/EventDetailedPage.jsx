@@ -7,6 +7,7 @@ import EventDetailedInfo from './EventDetailedInfo';
 import { Grid } from 'semantic-ui-react';
 
 
+
 const mapState = (state, ownProps) => {
     const eventId = ownProps.match.params.id;
     let event = {};
